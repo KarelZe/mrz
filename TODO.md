@@ -1,4 +1,3 @@
-- [ ] Automatic name truncation in Generator
 - [ ] Possibility of disabling checks for country code, nationality, type of document and the others fields in Checker.
 - [ ] Add logging
 - [ ] Use `enum.Enum` instead `int` for kinds _report (Checker)

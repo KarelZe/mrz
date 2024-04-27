@@ -2,6 +2,7 @@ import unittest
 
 from tests.td1_gnt_01 import TestCase01
 from tests.td1_gnt_02 import TestCase02
+from tests.td1_gnt_03 import TestCase10
 from tests.td2_gnt_01 import TestCase03
 from tests.td3_gnt_01 import TestCase04
 from tests.td3_gnt_02 import TestCase05
@@ -22,7 +23,7 @@ class TestCaseGntAll(unittest.TestCase):
         TestCase07().test_mrva_generator()
         TestCase08().test_mrvb_generator()
         TestCase09().test_mrvb_generator()
-
+        TestCase10().test_td1_generator()
 
 if __name__ == '__main__':
     unittest.main()

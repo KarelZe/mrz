@@ -90,8 +90,31 @@ class _TD1HolderName(_HolderName):
     def identifier(self) -> str:
         """Return identifier (sum of the primary and secondary identifier)
 
+        Might be truncated to initials.
+
         """
-        return check.field(self.surname + "<<" + self.given_names, 30, "full name", "<")
+        # truncate only if necessary.
+        if len(self.surname + self.given_names) <= 28:
+            return check.field(self.surname + "<<" + self.given_names, 30, "full name", "<")
+
+        # truncate identifiers to initials (approach in sec. 4.2.3.1 a)).
+        # see: https://www.icao.int/publications/Documents/9303_p5_cons_en.pdf
+        parts_sur = self.surname.split("<")
+        parts_giv = self.given_names.split("<")
+        parts = parts_sur + parts_giv
+
+        # reserve chars for initials (len) and fillers '<' (len -1) and '<<'.
+        chars_to_distribute = 28 - 1 * (2 * len(parts_sur + parts_giv)-2)
+        parts_trunc = []
+        for idx, part in enumerate(parts):
+            chars_of_part = min(chars_to_distribute, len(part)-1)
+            chars_to_distribute -= chars_of_part
+            parts_trunc.append(part[0:chars_of_part+1])
+            # insert '' to separate surname from given names.
+            if idx + 1 == len(parts_sur):
+                parts_trunc.append("")    
+        return check.field("<".join(parts_trunc), 30, "full name", "<")
+
 
 
 class TD1CodeGenerator(_TD1HolderName, _TD1HashGenerator, _FieldsGenerator):

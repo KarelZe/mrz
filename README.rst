@@ -367,11 +367,11 @@ Features:
 -  [x] Visas support
 -  [x] Fields extraction in checker (name, surname, country, sex, etc)
    (version 0.5.0)
+-  [x] Automatic name truncation in Generator
 
 TODO:
      
 
--  [ ] Automatic name truncation in Generator
 -  [ ] Possibility of disabling checks for country code, nationality,
    type of document and the others fields in Checker.
 -  [ ] Add logging
