@@ -103,14 +103,14 @@ class _TD1HolderName(_HolderName):
         parts_giv = self.given_names.split("<")
         parts = parts_sur + parts_giv
 
-        # reserve chars for initials (len) and fillers '<' (len -1) and '<<'.
-        chars_to_distribute = 28 - 1 * (2 * len(parts_sur + parts_giv)-2)
+        # reserve chars for initials and fillers '<' or '<<'.
+        chars_to_distribute = 28 - 1 * (2 * len(parts)-2)
         parts_trunc = []
         for idx, part in enumerate(parts):
             chars_of_part = min(chars_to_distribute, len(part)-1)
             chars_to_distribute -= chars_of_part
             parts_trunc.append(part[0:chars_of_part+1])
-            # insert '' to separate surname from given names.
+            # insert '' to separate surname from given names
             if idx + 1 == len(parts_sur):
                 parts_trunc.append("")    
         return check.field("<".join(parts_trunc), 30, "full name", "<")
